@@ -1,0 +1,16 @@
+{
+  "styles": {
+    "EasyUICss" : {
+      "version":"1.4.1",
+      "src":"assets/js/easy-ui/themes/bootstrap/easyui.css"
+    },
+    "EasyUIIconsCss": {
+      "version":"1.4.1",
+      "src":"assets/js/easy-ui/themes/icon.css"
+    },
+    "SimpleFilesCss": {
+      "version":"1.0.0",
+      "src":"assets/plugins/simplefiles/css/simplefiles.css"
+    }
+  }
+}

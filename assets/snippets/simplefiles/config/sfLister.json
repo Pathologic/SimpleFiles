@@ -1,0 +1,13 @@
+{
+	"table": "sf_files",
+	"idField": "sf_id",
+	"parentField" : "sf_rid",
+	"idType": "parents",
+	"ignoreEmpty": "1",
+	"orderBy": "sf_index DESC",
+	"prepare": "",
+	"addWhereList" : "`sf_isactive`=1",
+	"iconsFolder" : "assets/snippets/simplefiles/icons/",
+	"noneWrapOuter" : "0",
+	"e" : "st_title,st_description"
+}

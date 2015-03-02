@@ -1,0 +1,36 @@
+<div id="sfUploadState">
+    <div id="sfProgress">
+        <span></span>
+        <div></div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th class="sfrow1">{{sfLang.file}}</th>
+            <th class="sfrow2">{{sfLang.size}}</th>
+            <th class="sfrow3">{{sfLang.progress}}</th>
+        </tr>
+        </thead>
+    </table>
+    <div id="sfFilesList">
+        <table>
+            <tbody>
+            {{#each files}}
+                <tr id="sfFilesListRow{{@index}}">
+                    <td class="sfrow1">{{this.name}}</td>
+                    <td class="sfrow2">{{bytesToSize this.size}}</td>
+                    <td class="sfrow3 progress"></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div style="clear:both;padding:10px;float:right;">
+        <div id="sfUploadCancel" class="btn btn-right">
+            <div class="btn-text">
+                <img src="{{modxTheme}}/images/icons/stop.png">
+                <span>{{sfLang.cancel}}</span>
+            </div>
+        </div>
+    </div>
+</div>
