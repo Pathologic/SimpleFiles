@@ -103,6 +103,7 @@ class sfController extends \SimpleTab\AbstractController {
                 $name = $this->FS->getInexistantFilename($dest . $name, true);
                 if ($this->FS->copyFile($_REQUEST['sf_file'],$dest.$name)) {
                     $out['sf_file'] = $dest.$name;
+                    $out['sf_size'] = $this->FS->fileSize($out['sf_file']);
                     //TODO: icon refactor
                     $icon = $this->params['iconsFolder'].strtolower($this->FS->takeFileExt($out['sf_file'])).'.png';
                     $out['sf_icon'] = $this->modx->config['site_url'].($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'].'file.png');
