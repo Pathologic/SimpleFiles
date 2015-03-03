@@ -11,7 +11,7 @@ class sfController extends \SimpleTab\AbstractController {
         $this->ridField = 'sf_rid';
         $this->rid = isset($_REQUEST[$this->ridField]) ? (int)$_REQUEST[$this->ridField] : 0;
         $defaults = array(
-            'folder' => 'assets/files/storage/',
+            'folder' => 'assets/storage/',
             'iconsFolder' => 'assets/snippets/simplefiles/icons/',
             'allowedFiles' => $modx->config['upload_files']
         );
@@ -98,6 +98,7 @@ class sfController extends \SimpleTab\AbstractController {
         if ($id) {
             if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
                 $out = $this->data->edit($id)->toArray();
+                $out['sf_isactive'] = (int)!!$_REQUEST['sf_isactive'];
                 if ($out['sf_file'] !== $_REQUEST['sf_file']) {
                     $dest = $this->params['folder'] . $this->rid . "/";
                     $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);
