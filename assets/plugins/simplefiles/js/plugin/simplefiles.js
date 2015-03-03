@@ -111,7 +111,7 @@ var sfHelper = {};
                 destroyMsg: {
                     confirm: {   // when select a row
                         title: _sfLang['delete'],
-                        msg: _sfLang['are_you_sure']
+                        msg: _sfLang['are_you_sure_to_delete']
                     }
                 },
                 pagination: true,

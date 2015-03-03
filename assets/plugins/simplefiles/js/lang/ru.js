@@ -18,6 +18,7 @@ _sfLang['title'] = 'Название';
 _sfLang['description'] = 'Описание';
 _sfLang['active'] = 'Активен';
 _sfLang['yes'] = 'Да';
+_sfLang['no'] = 'Нет';
 _sfLang['save'] = 'Сохранить';
 _sfLang['save_fail'] = 'Не удалось сохранить';
 _sfUploadResult = [];

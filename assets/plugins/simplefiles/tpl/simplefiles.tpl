@@ -79,6 +79,13 @@ var sfGridColumns = [ [
         sortable:true,
         editor:{
             type:'textarea'
+        },
+        formatter: function(value) {
+            return value
+                    .replace(/&/g, '&amp;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/</g, '&lt;')
+                    .replace(/"/g, '&quot;');
         }
     },
     {

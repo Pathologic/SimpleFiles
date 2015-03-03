@@ -18,6 +18,7 @@ _sfLang['title'] = 'Title';
 _sfLang['description'] = 'Description';
 _sfLang['active'] = 'Active';
 _sfLang['yes'] = 'Yes';
+_sfLang['no'] = 'No';
 _sfLang['save'] = 'Save';
 _sfLang['save_fail'] = 'Failed to save.';
 _sfUploadResult = [];
