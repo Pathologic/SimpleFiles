@@ -98,15 +98,18 @@ class sfController extends \SimpleTab\AbstractController {
         if ($id) {
             if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
                 $out = $this->data->edit($id)->toArray();
-                $dest = $this->params['folder'] . $this->rid . "/";
-                $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);
-                $name = $this->FS->getInexistantFilename($dest . $name, true);
-                if ($this->FS->copyFile($_REQUEST['sf_file'],$dest.$name)) {
-                    $out['sf_file'] = $dest.$name;
-                    $out['sf_size'] = $this->FS->fileSize($out['sf_file']);
-                    //TODO: icon refactor
-                    $icon = $this->params['iconsFolder'].strtolower($this->FS->takeFileExt($out['sf_file'])).'.png';
-                    $out['sf_icon'] = $this->modx->config['site_url'].($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'].'file.png');
+                if ($out['sf_file'] !== $_REQUEST['sf_file']) {
+                    $dest = $this->params['folder'] . $this->rid . "/";
+                    $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);
+                    $name = $this->FS->relativePath($this->FS->getInexistantFilename($dest . $name, true));
+                    if ($this->FS->copyFile($_REQUEST['sf_file'], $name)) {
+                        @unlink(MODX_BASE_PATH.$out['sf_file']);
+                        $out['sf_file'] = $name;
+                        $out['sf_size'] = $this->FS->fileSize($out['sf_file']);
+                        //TODO: icon refactor
+                        $icon = $this->params['iconsFolder'] . strtolower($this->FS->takeFileExt($out['sf_file'])) . '.png';
+                        $out['sf_icon'] = $this->modx->config['site_url'] . ($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'] . 'file.png');
+                    }
                 }
             }
         } else {
