@@ -20,7 +20,7 @@ class sfPlugin extends  \SimpleTab\Plugin {
 			'tabName'		=>	$this->params['tabName'],
 			'site_url'		=>	$this->modx->config['site_url'],
 			'manager_url'	=>	MODX_MANAGER_URL,
-			'kcfinder_url'	=> 	MODX_MANAGER_URL."media/browser/mcpuk/browse.php?type=images",
+			'kcfinder_url'	=> 	MODX_MANAGER_URL."media/browser/mcpuk/browse.php?type=files",
             'allowedFiles'  =>  strtolower(str_replace(array(' ',','),array('','|'),isset($this->params['allowedFiles']) ? $this->params['allowedFiles'] : $this->modx->config['upload_files']))
 			);
 		return $ph;

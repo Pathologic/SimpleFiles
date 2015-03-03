@@ -35,7 +35,7 @@ if(!class_exists("DLsfLister", false)){
             $data['fSize'] = $_DL->FS->fileSize($data['sf_file'],true);
             $data['mime'] = $_DL->FS->takeFileMIME($data['sf_file']);
             $data['ext'] = $_DL->FS->takeFileExt($data['sf_file']);
-            $icon = $iconsFolder.$data['ext'].'.png';
+            $icon = $iconsFolder.strtolower($data['ext']).'.png';
             $data['icon'] = $modx->config['site_url'].($_DL->FS->checkFile($icon) ? $icon : $iconsFolder.'file.png');
             $data['filename'] = $_DL->FS->takeFileName($data['sf_file']);
             $data['basename'] = $_DL->FS->takeFileBasename($data['sf_file']);

@@ -50,7 +50,9 @@ var sfGridColumns = [ [
             type: 'fileBrowser',
             options: {
                 browserUrl: '[+kcfinder_url+]',
-                opener: 'sfGrid'
+                opener: 'sfGrid',
+                css: 'width:16px;height:16px;',
+                icon: '[+theme+]/images/icons/folder_add.png'
             }
         }
     },

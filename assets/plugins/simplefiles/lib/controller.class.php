@@ -94,7 +94,25 @@ class sfController extends \SimpleTab\AbstractController {
         return $out;
     }
     public function edit() {
-        
+        $id = isset($_REQUEST['sf_id']) ? (int)$_REQUEST['sf_id'] : 0;
+        if ($id) {
+            if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
+                $out = $this->data->edit($id)->toArray();
+                $dest = $this->params['folder'] . $this->rid . "/";
+                $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);
+                $name = $this->FS->getInexistantFilename($dest . $name, true);
+                if ($this->FS->copyFile($_REQUEST['sf_file'],$dest.$name)) {
+                    $out['sf_file'] = $dest.$name;
+                    //TODO: icon refactor
+                    $icon = $this->params['iconsFolder'].strtolower($this->FS->takeFileExt($out['sf_file'])).'.png';
+                    $out['sf_icon'] = $this->modx->config['site_url'].($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'].'file.png');
+                }
+            }
+        } else {
+            die();
+        }
+        $this->data->fromArray($out)->save();
+        return $out;
     }
 
     public function reorder()
@@ -119,7 +137,7 @@ class sfController extends \SimpleTab\AbstractController {
         $out = parent::listing();
         $data = json_decode($out,true);
         foreach ($data['rows'] as &$row) {
-            $icon = $this->params['iconsFolder'].$this->FS->takeFileExt($row['sf_file']).'.png';
+            $icon = $this->params['iconsFolder'].strtolower($this->FS->takeFileExt($row['sf_file'])).'.png';
             $row['sf_icon'] = $this->modx->config['site_url'].($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'].'file.png');
         }
         return json_encode($data);

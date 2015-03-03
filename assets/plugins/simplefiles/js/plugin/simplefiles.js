@@ -19,7 +19,7 @@ var sfHelper = {};
                 return options.inverse(this);
             });
             var workspace = $('#SimpleFiles');
-            workspace.append('<div class="js-fileapi-wrapper"><div class="btn"><div class="btn-text"><img src="'+sfConfig.theme+'/images/icons/folder_page_add.png">'+_sfLang['upload']+'</div><input id="sf_files" name="sf_files" class="btn-input" type="file" multiple /></div><table id="sfGrid"></table><div style="clear:both;"></div></div>');
+            workspace.append('<div class="js-fileapi-wrapper"><div class="btn"><div class="btn-text"><img src="'+sfConfig.theme+'/images/icons/folder_page_add.png">'+_sfLang['upload']+'</div><input id="sf_files" name="sf_files" class="btn-input" type="file" multiple /></div><table id="sfGrid" width="100%"></table></div>');
             workspace.fileapi({
                 url: sfConfig.url+'?mode=upload',
                 autoUpload: true,
