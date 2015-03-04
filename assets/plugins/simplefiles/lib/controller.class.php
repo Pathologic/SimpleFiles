@@ -52,6 +52,13 @@ class sfController extends \SimpleTab\AbstractController {
                         $this->data->create(array(
                             'sf_file' => $this->FS->relativePath($name),
                             'sf_rid' => $this->rid,
+                            'sf_type' => 'file',
+                            'sf_properties' => json_encode(array(
+                                'filename' => $this->FS->takeFileName($name),
+                                'basename' => $this->FS->takeFileBasename($name),
+                                'mime' => $this->FS->takeFileMIME($name),
+                                'ext' => $this->FS->takeFileExt($name)
+                            )),
                             'sf_title' => preg_replace('/\\.[^.\\s]{2,4}$/', '', $_FILES["sf_files"]["name"]),
                             'sf_size' => $this->FS->fileSize($name)
                             ))->save();
@@ -98,7 +105,6 @@ class sfController extends \SimpleTab\AbstractController {
         if ($id) {
             if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
                 $out = $this->data->edit($id)->toArray();
-                $out['sf_isactive'] = (int)!!$_REQUEST['sf_isactive'];
                 if ($out['sf_file'] !== $_REQUEST['sf_file']) {
                     $dest = $this->params['folder'] . $this->rid . "/";
                     $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);

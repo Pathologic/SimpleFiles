@@ -7,9 +7,13 @@ class sfData extends \autoTable {
 	/* @var autoTable $table */
 	protected $table = 'sf_files';
 	protected $pkName = 'sf_id';
+    protected $jsonFields = array(
+        'sf_properties'
+    );
+
 	public $_table = '';
 
-	public $default_field = array(
+    protected $default_field = array(
 		'sf_file' => '',
 		'sf_title' => '',
 		'sf_description' => '',
@@ -17,6 +21,8 @@ class sfData extends \autoTable {
 		'sf_createdon' => '',
 		'sf_index' => 0,
 		'sf_isactive' => '1',
+        'sf_type' => 'file',
+        'sf_properties' => '',
 		'sf_rid'=>0
 		);
 	protected $params = array();
@@ -46,7 +52,7 @@ class sfData extends \autoTable {
         while ($row = $this->modx->db->getRow($files)) {
             $url = $this->fs->relativePath($row['sf_file']);
             if ($this->fs->checkFile($url)) {
-                unlink(MODX_BASE_PATH . $url);
+                @unlink(MODX_BASE_PATH . $url);
                 $dir = $this->fs->takeFileDir($url);
                 $iterator = new \FilesystemIterator($dir);
                 if (!$iterator->valid()) $this->fs->rmDir($dir);
