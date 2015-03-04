@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS {$this->_table} (
 `sf_description` varchar(255) NOT NULL default '',
 `sf_size` int(10) default NULL,
 `sf_isactive` int(1) NOT NULL default '1',
+`sf_type` tinyint(2) NOT NULL default '0',
+`sf_properties` varchar(255) NOT NULL default '',
 `sf_rid` int(10) default NULL,
 `sf_index` int(10) NOT NULL default '0',
 `sf_createdon` datetime NOT NULL, 
