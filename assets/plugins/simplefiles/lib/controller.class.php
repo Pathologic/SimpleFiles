@@ -7,7 +7,6 @@ class sfController extends \SimpleTab\AbstractController {
     public function __construct(\DocumentParser $modx)
     {
         parent::__construct($modx);
-        $this->data = new \SimpleFiles\sfData($modx);
         $this->ridField = 'sf_rid';
         $this->rid = isset($_REQUEST[$this->ridField]) ? (int)$_REQUEST[$this->ridField] : 0;
         $defaults = array(
@@ -16,6 +15,8 @@ class sfController extends \SimpleTab\AbstractController {
             'allowedFiles' => $modx->config['upload_files']
         );
         foreach ($defaults as $key => $value) if (!isset($this->params[$key])) $this->params[$key] = $value;
+        $this->modx->event->params = $this->params;
+        $this->data = new \SimpleFiles\sfData($modx);
     }
 
     /**
@@ -42,6 +43,10 @@ class sfController extends \SimpleTab\AbstractController {
             $files = \FileAPI::getFiles(); // Retrieve File List
             $dir = $this->params['folder'] . $this->rid . "/";
             $flag = $this->FS->makeDir($dir, $this->modx->config['new_folder_permissions']);
+            if (!$flag) {
+                $this->modx->logEvent(0, 3, "Cannot create {$dir} .", 'SimpleFiles');
+                die();
+            }
             if ($files['sf_files']['error'] == UPLOAD_ERR_OK) {
                 $tmp_name = $files["sf_files"]["tmp_name"];
                 $name = $this->data->stripName($_FILES["sf_files"]["name"]);
@@ -113,9 +118,7 @@ class sfController extends \SimpleTab\AbstractController {
                         @unlink(MODX_BASE_PATH.$out['sf_file']);
                         $out['sf_file'] = $name;
                         $out['sf_size'] = $this->FS->fileSize($out['sf_file']);
-                        //TODO: icon refactor
-                        $icon = $this->params['iconsFolder'] . strtolower($this->FS->takeFileExt($out['sf_file'])) . '.png';
-                        $out['sf_icon'] = $this->modx->config['site_url'] . ($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'] . 'file.png');
+                        $out['sf_icon'] = $this->data->getFileIcon($out['sf_file']);
                     }
                 }
             }
@@ -147,10 +150,8 @@ class sfController extends \SimpleTab\AbstractController {
     {
         $out = parent::listing();
         $data = json_decode($out,true);
-        foreach ($data['rows'] as &$row) {
-            $icon = $this->params['iconsFolder'].strtolower($this->FS->takeFileExt($row['sf_file'])).'.png';
-            $row['sf_icon'] = $this->modx->config['site_url'].($this->FS->checkFile($icon) ? $icon : $this->params['iconsFolder'].'file.png');
-        }
+        foreach ($data['rows'] as &$row)
+            $row['sf_icon'] = $this->data->getFileIcon($row['sf_file']);
         return json_encode($data);
     }
 }

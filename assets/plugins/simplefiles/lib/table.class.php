@@ -32,7 +32,7 @@ class sfData extends \autoTable {
 		parent::__construct($modx, $debug);
 		$this->modx = $modx;
 		$this->params = (isset($modx->event->params) && is_array($modx->event->params)) ? $modx->event->params : array();
-		$this->fs = \Helpers\FS::getInstance();
+        $this->fs = \Helpers\FS::getInstance();
 		$this->_table['sf_files'] = $this->makeTable($this->table);
 	}
 
@@ -116,5 +116,12 @@ class sfData extends \autoTable {
      */
     public function stripName($name) {
         return $this->modx->stripAlias($name);
+    }
+
+    public function getFileIcon($file, $relativeUrl = false) {
+        $folder = $this->params['iconsFolder'];
+        $icon = $folder . strtolower($this->fs->takeFileExt($file)) . '.png';
+        $icon = $this->fs->checkFile($icon) ? $icon : $folder . 'file.png';
+        return $relativeUrl ? $icon : $this->modx->config['site_url'].$icon;
     }
 }
