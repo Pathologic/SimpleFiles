@@ -106,6 +106,7 @@ class sfController extends \SimpleTab\AbstractController {
         return $out;
     }
     public function edit() {
+		$out = array();
         $id = isset($_REQUEST['sf_id']) ? (int)$_REQUEST['sf_id'] : 0;
         if ($id) {
             if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
@@ -122,6 +123,8 @@ class sfController extends \SimpleTab\AbstractController {
                     }
                 }
             }
+			$out['sf_title'] = isset($_REQUEST['sf_title']) ? $_REQUEST['sf_title'] : $out['sf_title'];
+			$out['sf_description'] = isset($_REQUEST['sf_description']) ? $_REQUEST['sf_description'] : $out['sf_description'];
         } else {
             die();
         }

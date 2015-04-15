@@ -9,5 +9,5 @@
 	"addWhereList" : "`sf_isactive`=1",
 	"iconsFolder" : "assets/snippets/simplefiles/icons/",
 	"noneWrapOuter" : "0",
-	"e" : "st_title,st_description"
+	"e" : "sf_title,sf_description"
 }
