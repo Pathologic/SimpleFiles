@@ -4,11 +4,12 @@ require_once(MODX_BASE_PATH . 'assets/lib/SimpleTab/controller.abstract.php');
 require_once(MODX_BASE_PATH . 'assets/plugins/simplefiles/lib/table.class.php');
 
 class sfController extends \SimpleTab\AbstractController {
+    public $rfName='sf_rid';
+
     public function __construct(\DocumentParser $modx)
     {
         parent::__construct($modx);
-        $this->ridField = 'sf_rid';
-        $this->rid = isset($_REQUEST[$this->ridField]) ? (int)$_REQUEST[$this->ridField] : 0;
+        $this->rid = isset($_REQUEST[$this->rfName]) ? (int)$_REQUEST[$this->rfName] : 0;
         $defaults = array(
             'folder' => 'assets/storage/',
             'iconsFolder' => 'assets/snippets/simplefiles/icons/',
