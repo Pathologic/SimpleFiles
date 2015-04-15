@@ -17,6 +17,7 @@ class sfController extends \SimpleTab\AbstractController {
         foreach ($defaults as $key => $value) if (!isset($this->params[$key])) $this->params[$key] = $value;
         $this->modx->event->params = $this->params;
         $this->data = new \SimpleFiles\sfData($modx);
+        $this->dlInit();
     }
 
     /**
