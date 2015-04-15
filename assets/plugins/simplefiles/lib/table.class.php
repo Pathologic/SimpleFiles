@@ -34,7 +34,7 @@ class sfData extends \SimpleTab\dataTable {
 		$ids = $this->cleanIDs($ids, ',', array(0));
 		if(empty($ids) || is_scalar($ids)) return false;
         $files = $this->query('SELECT `sf_file` FROM '.$this->makeTable($this->table).' WHERE `sf_id` IN ('.$this->sanitarIn($ids).')');
-        $out = $this->delete($ids, $fire_events);
+        $out = parent::deleteAll($ids, $rid, $fire_events);
         while ($row = $this->modx->db->getRow($files)) {
             $url = $this->fs->relativePath($row['sf_file']);
             if ($this->fs->checkFile($url)) {
