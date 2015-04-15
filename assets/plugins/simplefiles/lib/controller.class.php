@@ -9,7 +9,6 @@ class sfController extends \SimpleTab\AbstractController {
     public function __construct(\DocumentParser $modx)
     {
         parent::__construct($modx);
-        $this->rid = isset($_REQUEST[$this->rfName]) ? (int)$_REQUEST[$this->rfName] : 0;
         $defaults = array(
             'folder' => 'assets/storage/',
             'iconsFolder' => 'assets/snippets/simplefiles/icons/',
@@ -93,19 +92,6 @@ class sfController extends \SimpleTab\AbstractController {
         }
     }
 
-    public function remove()
-    {
-        $out = array();
-        $ids = isset($_REQUEST['ids']) ? (string)$_REQUEST['ids'] : '';
-        $ids = isset($_REQUEST['id']) ? (string)$_REQUEST['id'] : $ids;
-        $out['success'] = false;
-        if (!empty($ids)) {
-            if ($this->data->deleteAll($ids, $this->rid)) {
-                $out['success'] = true;
-            }
-        }
-        return $out;
-    }
     public function edit() {
 		$out = array();
         $id = isset($_REQUEST['sf_id']) ? (int)$_REQUEST['sf_id'] : 0;
@@ -130,23 +116,6 @@ class sfController extends \SimpleTab\AbstractController {
             die();
         }
         $this->data->fromArray($out)->save();
-        return $out;
-    }
-
-    public function reorder()
-    {
-        $out = array();
-        $source = $_REQUEST['source'];
-        $target = $_REQUEST['target'];
-        $point = $_REQUEST['point'];
-        $orderDir = $_REQUEST['orderDir'];
-        $rows = $this->data->reorder($source, $target, $point, $this->rid, $orderDir);
-
-        if ($rows) {
-            $out['success'] = true;
-        } else {
-            $out['success'] = false;
-        }
         return $out;
     }
 
