@@ -12,7 +12,7 @@ if(!isset($_SESSION['mgrValidated'])){
 }
 $modx->invokeEvent('OnManagerPageInit',array('invokedBy'=>'SimpleFiles'));
 if (isset($modx->pluginCache['SimpleFilesProps'])) {
-	$modx->event->params = $modx->parseProperties($modx->pluginCache['SimpleFilesProps']);
+	$modx->event->params = $modx->parseProperties($modx->pluginCache['SimpleFilesProps'],'SimpleFiles','plugin');
 } else {
 	die();
 }
