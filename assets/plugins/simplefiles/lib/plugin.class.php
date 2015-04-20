@@ -13,17 +13,15 @@ class sfPlugin extends  \SimpleTab\Plugin {
 	
 	public  function getTplPlaceholders() {
 		$ph = array(
-			'id'			=>	$this->params['id'],
 			'lang'			=>	$this->lang_attribute,
 			'url'			=> 	$this->modx->config['site_url'].'assets/plugins/simplefiles/ajax.php',
 			'theme'			=>  MODX_MANAGER_URL.'media/style/'.$this->modx->config['manager_theme'],
-			'tabName'		=>	$this->params['tabName'],
 			'site_url'		=>	$this->modx->config['site_url'],
 			'manager_url'	=>	MODX_MANAGER_URL,
 			'kcfinder_url'	=> 	MODX_MANAGER_URL."media/browser/mcpuk/browse.php?type=files",
             'allowedFiles'  =>  strtolower(str_replace(array(' ',','),array('','|'),isset($this->params['allowedFiles']) ? $this->params['allowedFiles'] : $this->modx->config['upload_files']))
 			);
-		return $ph;
+		return array_merge($this->params,$ph);
     }
     public function createTable() {
     	$sql = <<< OUT
