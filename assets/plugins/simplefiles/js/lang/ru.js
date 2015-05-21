@@ -21,6 +21,7 @@ _sfLang['yes'] = 'Да';
 _sfLang['no'] = 'Нет';
 _sfLang['save'] = 'Сохранить';
 _sfLang['save_fail'] = 'Не удалось сохранить';
+_sfLang['save_document_to_continue'] = 'Для работы с файловым архивом необходимо сохранить документ.';
 _sfUploadResult = [];
 _sfUploadResult[0] = 'Файл успешно загружен';
 _sfUploadResult[1] = 'Размер файла превысил значение upload_max_filesize';

@@ -6,8 +6,10 @@ class sfPlugin extends  \SimpleTab\Plugin {
 	public $pluginName = 'SimpleFiles';
 	public $table = 'sf_files';
 	public $tpl = 'assets/plugins/simplefiles/tpl/simplefiles.tpl';
+    public $emptyTpl = 'assets/plugins/simplefiles/tpl/empty.tpl';
 	public $jsListDefault = 'assets/plugins/simplefiles/js/scripts.json';
 	public $jsListCustom = 'assets/plugins/simplefiles/js/custom.json';
+    public $jsListEmpty = 'assets/plugins/simplefiles/js/empty.json';
 	public $cssListDefault = 'assets/plugins/simplefiles/css/styles.json';
 	public $cssListCustom = 'assets/plugins/simplefiles/css/custom.json';
 	

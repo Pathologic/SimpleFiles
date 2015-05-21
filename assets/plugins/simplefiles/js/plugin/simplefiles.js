@@ -212,9 +212,9 @@ var sfHelper = {};
                     row.editing = false;
                     sfHelper.updateActions(index);
                 },
-                onClickRow: function (row) {
+                onClickRow: function (index, row) {
                     row.editing = false;
-                    $('#sfGrid').edatagrid('cancelEdit', row);
+                    $('#sfGrid').edatagrid('cancelEdit', index);
                 },
                 onSelect: function (rowIndex) {
                     $('#sfGrid').edatagrid('unselectRow', rowIndex);
