@@ -12,6 +12,8 @@ class sfPlugin extends  \SimpleTab\Plugin {
     public $jsListEmpty = 'assets/plugins/simplefiles/js/empty.json';
 	public $cssListDefault = 'assets/plugins/simplefiles/css/styles.json';
 	public $cssListCustom = 'assets/plugins/simplefiles/css/custom.json';
+
+    protected $checkId = false;
 	
 	public  function getTplPlaceholders() {
 		$ph = array(
