@@ -25,9 +25,9 @@ class sfController extends \SimpleTab\AbstractController {
      */
     public function upload()
     {
-        $out = array();
         include_once MODX_BASE_PATH . 'assets/plugins/simplefiles/lib/FileAPI.class.php';
 
+        $errorCode = 0;
         if (!empty($_SERVER['HTTP_ORIGIN'])) {
             // Enable CORS
             header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
@@ -41,20 +41,32 @@ class sfController extends \SimpleTab\AbstractController {
         }
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-            $files = \FileAPI::getFiles(); // Retrieve File List
             $dir = $this->params['folder'] . $this->rid . "/";
             $flag = $this->FS->makeDir($dir, $this->modx->config['new_folder_permissions']);
             if (!$flag) {
                 $this->modx->logEvent(0, 3, "Cannot create {$dir} .", 'SimpleFiles');
                 die();
             }
-            if ($files['sf_files']['error'] == UPLOAD_ERR_OK) {
-                $tmp_name = $files["sf_files"]["tmp_name"];
-                $name = $this->data->stripName($_FILES["sf_files"]["name"]);
+
+            $uploadDir = $this->params['folder'].'upload/'.$this->rid .'/';
+            $this->FS->makeDir($uploadDir, $this->modx->config['new_folder_permissions']);
+            $filename = end(explode('filename=',$_SERVER['HTTP_CONTENT_DISPOSITION']));
+            $in = @fopen("php://input", "rb");
+            $out = fopen(MODX_BASE_PATH . $uploadDir.$filename.'.part', "ab");
+            while ($buff = fread($in, 4096)) {
+                @fwrite($out, $buff);
+            }
+            @fclose($out);
+            @fclose($in);
+            $content_range_header = $_SERVER['HTTP_CONTENT_RANGE'];
+            $content_range = $content_range_header ? preg_split('/[^0-9]+/', $content_range_header) : null;
+            $size =  $content_range ? $content_range[3] : null;
+            if ($size && $size == $this->FS->fileSize($uploadDir . $filename.'.part')) {
+                $name = $this->data->stripName($filename);
                 $name = $this->FS->getInexistantFilename($dir . $name, true);
-                $ext = $this->FS->takeFileExt($name);
+                $ext = end(explode('.',$name));
                 if (in_array($ext, explode(',',$this->params['allowedFiles']))) {
-                    if (@move_uploaded_file($tmp_name, $name)) {
+                    if ($this->FS->moveFile($uploadDir . $filename . '.part', $name)) {
                         $this->data->create(array(
                             'sf_file' => $this->FS->relativePath($name),
                             'sf_rid' => $this->rid,
@@ -66,30 +78,27 @@ class sfController extends \SimpleTab\AbstractController {
                                 'ext' => $this->FS->takeFileExt($name)
                             )),
                             'sf_title' => preg_replace('/\\.[^.\\s]{2,4}$/', '', $_FILES["sf_files"]["name"]),
-                            'sf_size' => $this->FS->fileSize($name)
-                            ))->save();
+                            'sf_size' => $size
+                        ))->save();
+                    } else {
+                        $errorCode = 101;
                     }
                 } else {
-                    $files['sf_files']['error'] = 101;
+                    $errorCode = 7;
                 }
+                $this->FS->rmDir($this->params['folder'].'upload/'.$this->rid);
             }
-
-            //fetchImages($files, $images);
-            $json = array(
-                'data' => array('_REQUEST' => $_REQUEST, '_FILES' => $files)
-            );
-
-            // JSONP callback name
-            $jsonp = isset($_REQUEST['callback']) ? trim($_REQUEST['callback']) : null;
 
             // Server response: "HTTP/1.1 200 OK"
             $this->isExit = true;
             $this->output = \FileAPI::makeResponse(array(
-              'status' => \FileAPI::OK
+                'status' => \FileAPI::OK
             , 'statusText' => 'OK'
-            , 'body' => $json
-            ), $jsonp);
-            return $out;
+            , 'body' => array(
+                    'data' => array('errorCode' => $errorCode)
+                )
+            ));
+            return;
         }
     }
 

@@ -24,6 +24,8 @@ var sfHelper = {};
                 url: sfConfig.url+'?mode=upload',
                 autoUpload: true,
                 multiple: true,
+                chunkSize: .5 * FileAPI.MB,
+                chunkUploadRetry: 1,
                 clearOnSelect: true,
                 data: {
                     sf_rid:sfConfig.rid
@@ -77,7 +79,7 @@ var sfHelper = {};
                 onFileComplete: function(e,uiE) {
                     var errorCode = 101;
                     if (uiE.result.data !== undefined) {
-                        errorCode = parseInt(uiE.result.data._FILES.sf_files.error);
+                        errorCode = parseInt(uiE.result.data.errorCode);
                     }
                     if (errorCode) {
                         $('.progress','#sfFilesListRow'+(sfConfig.sfFileId-1)).html('<img src="'+sfConfig.theme+'/images/icons/error.png'+'" title="'+_sfUploadResult[errorCode]+'">');
