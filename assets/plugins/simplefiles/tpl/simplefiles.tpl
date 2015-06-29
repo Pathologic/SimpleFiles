@@ -11,6 +11,7 @@ var sfConfig = {
     sfOrderBy:'sf_index',
     sfOrderDir:'desc',
     sfFileId:0,
+    maxFileSize:[+maxFileSize+],
     url:'[+url+]',
     allowedFiles:/[+allowedFiles+]$/
 };

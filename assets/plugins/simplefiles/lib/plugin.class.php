@@ -23,6 +23,7 @@ class sfPlugin extends  \SimpleTab\Plugin {
 			'site_url'		=>	$this->modx->config['site_url'],
 			'manager_url'	=>	MODX_MANAGER_URL,
 			'kcfinder_url'	=> 	MODX_MANAGER_URL."media/browser/mcpuk/browse.php?type=files",
+            'maxFileSize'   =>  isset($this->params['maxFileSize']) ? $this->params['maxFileSize'] : 0,
             'allowedFiles'  =>  strtolower(str_replace(array(' ',','),array('','|'),isset($this->params['allowedFiles']) ? $this->params['allowedFiles'] : $this->modx->config['upload_files']))
 			);
 		return array_merge($this->params,$ph);

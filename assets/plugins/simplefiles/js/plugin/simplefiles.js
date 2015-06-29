@@ -24,6 +24,7 @@ var sfHelper = {};
                 url: sfConfig.url+'?mode=upload',
                 autoUpload: true,
                 multiple: true,
+                maxSize: sfConfig.maxFileSize * FileAPI.MB,
                 chunkSize: .5 * FileAPI.MB,
                 chunkUploadRetry: 1,
                 clearOnSelect: true,
