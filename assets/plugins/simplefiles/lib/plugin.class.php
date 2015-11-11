@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS {$this->_table} (
 `sf_rid` int(10) default NULL,
 `sf_index` int(10) NOT NULL default '0',
 `sf_createdon` datetime NOT NULL, 
-PRIMARY KEY  (`sf_id`)
+PRIMARY KEY  (`sf_id`),
+KEY `sf_isactive` (`sf_isactive`)
 ) ENGINE=MyISAM COMMENT='Datatable for SimpleFiles plugin.';
 OUT;
 		return $this->modx->db->query($sql);
