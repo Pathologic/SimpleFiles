@@ -15,7 +15,7 @@ class sf_site_contentDocLister extends site_contentDocLister
         $sfOrderBy = $this->modx->db->escape($this->getCFGDef('sfOrderBy','sf_index ASC'));
 
         $sfDisplay = $this->getCFGDef('sfDisplay','all');
-        $sfAddWhereList = $this->modx->db->escape($this->getCFGDef('sfAddWhereList',''));
+        $sfAddWhereList = $this->getCFGDef('sfAddWhereList','');
 
         if (!empty($sfAddWhereList)) $sfAddWhereList = ' AND ('.$sfAddWhereList.')';
         if (!empty($rid) && ($sfDisplay == 'all' || is_numeric($sfDisplay))) {
