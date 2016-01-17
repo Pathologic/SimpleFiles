@@ -127,6 +127,7 @@ class sfController extends \SimpleTab\AbstractController {
             }
 			$out['sf_title'] = isset($_REQUEST['sf_title']) ? $_REQUEST['sf_title'] : $out['sf_title'];
 			$out['sf_description'] = isset($_REQUEST['sf_description']) ? $_REQUEST['sf_description'] : $out['sf_description'];
+			$out['sf_isactive'] = isset($_REQUEST['sf_isactive']) ? $_REQUEST['sf_isactive'] : $out['sf_isactive'];
         } else {
             die();
         }
