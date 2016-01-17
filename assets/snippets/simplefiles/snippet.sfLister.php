@@ -39,6 +39,8 @@ if(!class_exists("DLsfLister", false)){
             $data['icon'] = $_DL->FS->checkFile($icon) ? $icon : $iconsFolder.'file.png';
             $data['filename'] = $_DL->FS->takeFileName($data['sf_file']);
             $data['basename'] = $_DL->FS->takeFileBasename($data['sf_file']);
+            $data['e.sf_title'] = htmlentities($data['sf_title'], ENT_COMPAT, 'UTF-8', false);
+            $data['e.sf_description'] = htmlentities($data['sf_description'], ENT_COMPAT, 'UTF-8', false);
             return $data;
         }            
     }
