@@ -14,7 +14,7 @@ class sfController extends \SimpleTab\AbstractController {
             'iconsFolder' => 'assets/snippets/simplefiles/icons/',
             'allowedFiles' => $modx->config['upload_files']
         );
-        foreach ($defaults as $key => $value) if (!isset($this->params[$key])) $this->params[$key] = $value;
+        foreach ($defaults as $key => $value) if (!isset($this->params[$key]) || empty($this->params[$key])) $this->params[$key] = $value;
         $this->modx->event->params = $this->params;
         $this->data = new \SimpleFiles\sfData($modx);
         $this->dlInit();
@@ -66,7 +66,7 @@ class sfController extends \SimpleTab\AbstractController {
             }
             @fclose($out);
             @fclose($in);
-             if ($size && $size == $this->FS->fileSize($partfile)) {
+            if ($size && $size == $this->FS->fileSize($partfile)) {
                 $name = $this->data->stripName(urldecode($filename));
                 $name = $this->FS->getInexistantFilename($dir . $name, true);
                 $ext = end(explode('.',$name));
