@@ -31,6 +31,15 @@ class sf_site_contentDocLister extends site_contentDocLister
                     break;
             }
             $files = $this->dbQuery($sql);
+            $count = $this->getCFGDef('count',0);
+            if ($count) {
+                $sql = "SELECT `sf_rid`, COUNT(`sf_rid`) AS cnt FROM {$table} WHERE `sf_rid` IN ({$rid}) {$sfAddWhereList} GROUP BY sf_rid";
+                $_count = $this->dbQuery($sql);
+                while ($count = $this->modx->db->getRow($_count)) {
+                    $_rid = $count['sf_rid'];
+                    $docs[$_rid]['count'] = $count['cnt'];
+                }
+            }
             while ($file = $this->modx->db->getRow($files)) {
                 $_rid = $file['sf_rid'];
                 $docs[$_rid]['files'][] = $file;
