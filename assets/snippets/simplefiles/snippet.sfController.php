@@ -31,9 +31,9 @@ if(!class_exists("DLsfController", false)){
                     $ph['basename'] = $_DL->FS->takeFileBasename($file['sf_file']);
                     $ph['e.sf_title'] = htmlentities($file['sf_title'], ENT_COMPAT, 'UTF-8', false);
                     $ph['e.sf_description'] = htmlentities($file['sf_description'], ENT_COMPAT, 'UTF-8', false);
-                    $wrapper .= $_DocLister->parseChunk($_DocLister->getCfgDef('sfRowTpl'), $ph);
+                    $wrapper .= $_DL->parseChunk($_DL->getCfgDef('sfRowTpl'), $ph);
                 }
-                $data['files'] = $_DocLister->parseChunk($_DocLister->getCfgDef('sfOuterTpl'),array('wrapper'=>$wrapper));
+                $data['files'] = $_DL->parseChunk($_DL->getCfgDef('sfOuterTpl'),array('wrapper'=>$wrapper));
             }
             return $data;
         }            
