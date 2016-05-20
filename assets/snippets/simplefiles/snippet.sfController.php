@@ -17,7 +17,7 @@ $params = array_merge(array(
 if(!class_exists("DLsfController", false)){
     class DLsfController{
         public static function prepare(array $data = array(), DocumentParser $modx, $_DL, prepare_DL_Extender $_extDocLister){
-            $iconsFolder = $_DL->getCfgDef('iconsFolder','assets/snippets/simplefiles/icons');
+            $iconsFolder = $_DL->getCfgDef('iconsFolder','assets/snippets/simplefiles/icons/');
             $wrapper='';
             if (isset($data['files'])) {
                 foreach ($data['files'] as $file) {
