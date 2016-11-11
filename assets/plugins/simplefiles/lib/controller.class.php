@@ -109,15 +109,15 @@ class sfController extends \SimpleTab\AbstractController {
 
     public function edit() {
 		$out = array();
-        $id = isset($_REQUEST['sf_id']) ? (int)$_REQUEST['sf_id'] : 0;
+        $id = isset($_POST['sf_id']) ? (int)$_POST['sf_id'] : 0;
         if ($id) {
-            if ($this->FS->checkFile($_REQUEST['sf_file']) && in_array($this->FS->takeFileExt($_REQUEST['sf_file']), explode(',',$this->params['allowedFiles']))) {
+            if ($this->FS->checkFile($_POST['sf_file']) && in_array($this->FS->takeFileExt($_POST['sf_file']), explode(',',$this->params['allowedFiles']))) {
                 $out = $this->data->edit($id)->toArray();
-                if ($out['sf_file'] !== $_REQUEST['sf_file']) {
+                if ($out['sf_file'] !== $_POST['sf_file']) {
                     $dest = $this->params['folder'] . $this->rid . "/";
-                    $name = $this->FS->takeFileBasename($_REQUEST['sf_file']);
+                    $name = $this->FS->takeFileBasename($_POST['sf_file']);
                     $name = $this->FS->relativePath($this->FS->getInexistantFilename($dest . $name, true));
-                    if ($this->FS->copyFile($_REQUEST['sf_file'], $name)) {
+                    if ($this->FS->copyFile($_POST['sf_file'], $name)) {
                         @unlink(MODX_BASE_PATH.$out['sf_file']);
                         $out['sf_file'] = $name;
                         $out['sf_size'] = $this->FS->fileSize($out['sf_file']);
@@ -125,9 +125,9 @@ class sfController extends \SimpleTab\AbstractController {
                     }
                 }
             }
-			$out['sf_title'] = isset($_REQUEST['sf_title']) ? $_REQUEST['sf_title'] : $out['sf_title'];
-			$out['sf_description'] = isset($_REQUEST['sf_description']) ? $_REQUEST['sf_description'] : $out['sf_description'];
-			$out['sf_isactive'] = isset($_REQUEST['sf_isactive']) ? $_REQUEST['sf_isactive'] : $out['sf_isactive'];
+			$out['sf_title'] = isset($_POST['sf_title']) ? $_POST['sf_title'] : $out['sf_title'];
+			$out['sf_description'] = isset($_POST['sf_description']) ? $_POST['sf_description'] : $out['sf_description'];
+			$out['sf_isactive'] = isset($_POST['sf_isactive']) ? $_POST['sf_isactive'] : $out['sf_isactive'];
         } else {
             die();
         }
