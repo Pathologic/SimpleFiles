@@ -155,7 +155,7 @@ var sfGridColumns = [ [
     }
 ] ];
 (function($){
-$(window).load(function(){
+$(window).on('load', function(){
     if ($('#sf-tab')) {
     $('#sf-tab.selected').trigger('click');    
 }
