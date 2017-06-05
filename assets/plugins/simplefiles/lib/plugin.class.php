@@ -19,7 +19,6 @@ class sfPlugin extends  \SimpleTab\Plugin {
 		$ph = array(
 			'lang'			=>	$this->lang_attribute,
 			'url'			=> 	$this->modx->config['site_url'].'assets/plugins/simplefiles/ajax.php',
-			'theme'			=>  MODX_MANAGER_URL.'media/style/'.$this->modx->config['manager_theme'],
 			'site_url'		=>	$this->modx->config['site_url'],
 			'manager_url'	=>	MODX_MANAGER_URL,
 			'kcfinder_url'	=> 	MODX_MANAGER_URL."media/browser/mcpuk/browse.php?type=files",
@@ -43,7 +42,9 @@ CREATE TABLE IF NOT EXISTS {$this->_table} (
 `sf_index` int(10) NOT NULL default '0',
 `sf_createdon` datetime NOT NULL, 
 PRIMARY KEY  (`sf_id`),
-KEY `sf_isactive` (`sf_isactive`)
+KEY `sf_isactive` (`sf_isactive`),
+KEY `sf_rid` (`sf_rid`),
+KEY `sf_index` (`sf_index`)
 ) ENGINE=MyISAM COMMENT='Datatable for SimpleFiles plugin.';
 OUT;
 		return $this->modx->db->query($sql);

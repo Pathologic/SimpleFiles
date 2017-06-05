@@ -18,6 +18,7 @@ class sfController extends \SimpleTab\AbstractController {
         $this->modx->event->params = $this->params;
         $this->data = new \SimpleFiles\sfData($modx);
         $this->dlInit();
+        $this->dlParams['dateSource'] = 'date';
     }
 
     /**
@@ -25,8 +26,6 @@ class sfController extends \SimpleTab\AbstractController {
      */
     public function upload()
     {
-        include_once MODX_BASE_PATH . 'assets/plugins/simplefiles/lib/FileAPI.class.php';
-
         $errorCode = 0;
         if (!empty($_SERVER['HTTP_ORIGIN'])) {
             // Enable CORS
@@ -96,12 +95,9 @@ class sfController extends \SimpleTab\AbstractController {
 
             // Server response: "HTTP/1.1 200 OK"
             $this->isExit = true;
-            $this->output = \FileAPI::makeResponse(array(
-                'status' => \FileAPI::OK
-            , 'statusText' => 'OK'
-            , 'body' => array(
-                    'data' => array('errorCode' => $errorCode)
-                )
+            $this->output = json_encode(array(
+                'success' => !$errorCode,
+                'message' => $errorCode
             ));
             return;
         }
