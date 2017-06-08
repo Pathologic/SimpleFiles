@@ -24,3 +24,4 @@ _sfLang['save'] = 'Сохранить';
 _sfLang['save_fail'] = 'Не удалось сохранить';
 _sfLang['save_document_to_continue'] = 'Для работы с файловым архивом необходимо сохранить документ.';
 _sfLang['server_error'] = 'Ошибка сервера: ';
+_sfLang['parse_error'] = 'Не удалось обработать ответ сервера';

@@ -6,7 +6,11 @@ var sfHelper = {};
         point: '',
         init: function() {
             var workspace = $('#SimpleFiles');
-            workspace.append('<div class="js-fileapi-wrapper"><div class="btn-left"><a href="javascript:void(0)" id="sfUploadBtn"></a></div><table id="sfGrid" width="100%"></table></div>');
+            workspace.append('<div class="js-fileapi-wrapper"><div class="btn-left"><a href="javascript:void(0)" id="sfUploadBtn"></a><a href="javascript:void(0)" id="sfAddBtn"></a></div><table id="sfGrid" width="100%"></table></div>');
+            $('#sfAddBtn').linkbutton({
+               iconCls:'fa fa-file-o',
+               text: 'Добавить'
+            });
             var uploaderOptions = {
                 workspace:'#SimpleFiles',
                 dndArea:'.js-fileapi-wrapper',

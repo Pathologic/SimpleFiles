@@ -24,3 +24,4 @@ _sfLang['save'] = 'Save';
 _sfLang['save_fail'] = 'Failed to save.';
 _sfLang['save_document_to_continue'] = 'Save document to work with file archive.';
 _sfLang['server_error'] = 'Server error: ';
+_sfLang['parse_error'] = 'Failed to process server response';
