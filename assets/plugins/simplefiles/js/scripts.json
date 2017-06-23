@@ -1,48 +1,60 @@
 {
-	"scripts": {
-		"EasyUI" : {
-			"version":"1.4.1",
-			"src":"assets/js/easy-ui/jquery.easyui.min.js"
-		},
-        "datagrid-dnd" : {
-            "version":"1.4.1",
-            "src":"assets/js/easy-ui/plugins/jquery.datagrid-dnd.js"
-        },
-        "edatagrid" : {
-            "version":"1.4.1",
-            "src":"assets/js/easy-ui/plugins/jquery.edatagrid.js"
-        },
-	  	"easyui-lang-[+lang+]":{
-			"version":"1.4.1",
-			"src":"assets/js/easy-ui/locale/easyui-lang-[+lang+].js"
-	  	},
-        "fileBrowser" : {
-            "version":"1.4.1",
-            "src":"assets/js/easy-ui/editors/fileBrowser.js"
-        },
-		"FileAPI": {
-			"version":"2.0.8",
-			"src":"assets/js/fileapi/FileAPI/FileAPI.min.js"
-		},
-		"jquery.fileapi":{
-			"version":"0.4.5",
-			"src":"assets/js/fileapi/jquery.fileapi.min.js"
-		},
-        "handlebars":{
-            "version":"2.0.0",
-            "src":"assets/js/handlebars/handlebars.runtime.min.js"
-        },
-        "templates":{
-            "version":"1.0.0",
-            "src":"assets/plugins/simplefiles/js/tpl/templates.js"
-        },
-		"SimpleFiles":{
-			"version":"1.0.0",
-			"src":"assets/plugins/simplefiles/js/plugin/simplefiles.js"
-		},
-		"sf-lang-[+lang+]":{
-			"version":"1.0.0",
-			"src":"assets/plugins/simplefiles/js/lang/[+lang+].js"
-		}
-	}
+  "scripts": {
+    "EasyUI": {
+      "version": "1.5.2",
+      "src": "assets/js/easy-ui/jquery.easyui.min.js"
+    },
+    "datagrid-dnd": {
+      "version": "1.5.2",
+      "src": "assets/js/easy-ui/plugins/jquery.datagrid-dnd.js"
+    },
+    "edatagrid": {
+      "version": "1.5.2",
+      "src": "assets/js/easy-ui/plugins/jquery.edatagrid.js"
+    },
+    "easyui-lang-[+lang+]": {
+      "version": "1.5.2",
+      "src": "assets/js/easy-ui/locale/easyui-lang-[+lang+].js"
+    },
+    "fileBrowser": {
+      "version": "1.4.1",
+      "src": "assets/js/easy-ui/editors/fileBrowser.js"
+    },
+    "FileAPI": {
+      "version": "2.0.8",
+      "src": "assets/js/fileapi/FileAPI/FileAPI.min.js"
+    },
+    "handlebars": {
+      "version": "2.0.0",
+      "src": "assets/js/handlebars/handlebars.runtime.min.js"
+    },
+    "handlebars-helpers": {
+      "version": "2.0.0",
+      "src": "assets/js/handlebars/helpers.js"
+    },
+    "EUIUploader": {
+      "version": "1.2.0",
+      "src": "assets/js/euiuploader/js/euiuploader.js"
+    },
+    "EUIUploader-lang-[+lang+]": {
+      "version": "1.2.0",
+      "src": "assets/js/euiuploader/lang/[+lang+].js"
+    },
+    "EUIGrid": {
+      "version": "1.2.0",
+      "src": "assets/js/euigrid/js/euigrid.js"
+    },
+    "EUIGrid-lang-[+lang+]": {
+      "version": "1.2.0",
+      "src": "assets/js/euigrid/lang/[+lang+].js"
+    },
+    "SimpleFiles": {
+      "version": "1.2.0",
+      "src": "assets/plugins/simplefiles/js/plugin/simplefiles.js"
+    },
+    "sf-lang-[+lang+]": {
+      "version": "1.2.0",
+      "src": "assets/plugins/simplefiles/js/lang/[+lang+].js"
+    }
+  }
 }

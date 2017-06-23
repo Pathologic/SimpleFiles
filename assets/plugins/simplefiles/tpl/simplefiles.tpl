@@ -1,16 +1,7 @@
-<style type="text/css">
-    .btn-deleteAll {
-        background: url([+theme+]/images/icons/trash.png) -2px center no-repeat;
-    }
-</style>
 <script type="text/javascript">
 var sfConfig = {
     rid:[+id+],
-    theme:'[+theme+]',
     sfGridLoaded:false,
-    sfOrderBy:'sf_index',
-    sfOrderDir:'desc',
-    sfFileId:0,
     maxFileSize:[+maxFileSize+],
     url:'[+url+]',
     allowedFiles:/[+allowedFiles+]$/
@@ -26,14 +17,10 @@ var sfGridColumns = [ [
         sortable:true
     },
     {
-        field:'sf_id',
-        hidden:true
-    },
-    {
         field:'sf_icon',
         title:'',
         sortable:false,
-        width:20,
+        width:24,
         fixed:true,
         align:'center',
         formatter: function(value) {
@@ -43,6 +30,7 @@ var sfGridColumns = [ [
     {
         field:'sf_file',
         title:_sfLang['file'],
+        width:100,
         sortable:true,
         formatter: function(value) {
             return value.split('/').pop();
@@ -53,22 +41,16 @@ var sfGridColumns = [ [
                 browserUrl: '[+kcfinder_url+]',
                 opener: 'sfGrid',
                 css: 'width:16px;height:16px;',
-                icon: '[+theme+]/images/icons/folder_add.png'
+                cls: 'fa fa-folder fa-lg'
             }
         }
     },
     {
         field:'sf_title',
         title:_sfLang['title'],
-        width:200,
+        width:100,
         sortable:true,
-        formatter: function(value) {
-            return value
-                    .replace(/&/g, '&amp;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/</g, '&lt;')
-                    .replace(/"/g, '&quot;');
-        },
+        formatter: sfHelper.escape,
         editor:{
             type:'text'
         }
@@ -79,24 +61,19 @@ var sfGridColumns = [ [
         width:150,
         sortable:true,
         editor:{
-            type:'textarea'
+            type:'textarea',
+            options:{
+                height:'40px'
+            }
         },
-        formatter: function(value) {
-            return value
-                    .replace(/&/g, '&amp;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/</g, '&lt;')
-                    .replace(/"/g, '&quot;');
-        }
+        formatter: sfHelper.escape
     },
     {
         field:'sf_size',
         title:_sfLang['size'],
         align:'center',
         sortable:true,
-        formatter:function(value,row,index){
-            return sfHelper.bytesToSize(value);
-        }
+        formatter:Handlebars.helpers.bytesToSize
     },
     {
         field:'sf_createdon',
@@ -143,36 +120,46 @@ var sfGridColumns = [ [
         title:'',
         align:'center',
         fixed:true,
-        formatter:function(value,row){
+        formatter:function(value,row,index){
             if (row.editing){
-                var save = '<a href="javascript:void(0)" onclick="sfHelper.saverow(this)"><img src="[+theme+]/images/icons/save.png"></a> ';
-                var cancel = '<a href="javascript:void(0)" onclick="sfHelper.cancelrow(this)"><img src="[+theme+]/images/icons/delete.png"></a>';
+                var save = '<a class="action save" href="javascript:void(0)" onclick="sfHelper.saverow('+index+')"><i class="fa fa-save fa-lg"></i></a> ';
+                var cancel = '<a class="action cancel" href="javascript:void(0)" onclick="sfHelper.cancelrow('+index+')"><i class="fa fa-ban fa-lg"></i></a>';
                 return save+cancel;
             } else {
-                return '<a href="javascript:void(0)" onclick="sfHelper.deleteRow(this)" title="'+_sfLang['delete']+'"><img src="[+theme+]/images/icons/trash.png"></a>';
+                return '<a class="action delete" href="javascript:void(0)" onclick="sfHelper.deleteRow('+index+')" title="'+_sfLang['delete']+'"><i class="fa fa-trash fa-lg"></i></a>';
             }
         }
     }
 ] ];
+
 (function($){
-$(window).on('load', function(){
-    if ($('#sf-tab')) {
-    $('#sf-tab.selected').trigger('click');    
-}
-});
-$(document).ready(function(){
-$('#sf-tab').click(function(){
-    if (sfConfig.sfGridLoaded) {
-        $('#sfGrid').edatagrid('reload');
-    } else {
-        sfHelper.init();
-        sfConfig.sfGridLoaded = true;
-        $(window).trigger('resize'); //stupid hack
-    }
-})
-})
+    $('#documentPane').on('click','#sf-tab',function(){
+        if (sfConfig.sfGridLoaded) {
+            $('#sfGrid').edatagrid('reload');
+            $(window).trigger('resize');
+        } else {
+            sfHelper.init();
+            sfConfig.sfGridLoaded = true;
+        }
+    });
+    $(window).on('load', function(){
+        if ($('#sf-tab')) {
+            $('#sf-tab.selected').trigger('click');
+        }
+    });
+    $(window).on('resize',function(){
+        if ($('#sf-tab').hasClass('selected')) {
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(function () {
+                $('#SimpleFiles').width($('body').width() - 60);
+                if (sfConfig.sfGridLoaded) {
+                    $('#sfGrid').datagrid('getPanel').panel('resize');
+                }
+            }, 300);
+        }
+    })
 })(jQuery)
 </script>
-<div id="SimpleFiles" class="tab-page" style="width:100%;-moz-box-sizing: border-box; box-sizing: border-box;">
+<div id="SimpleFiles" class="tab-page">
 <h2 class="tab" id="sf-tab">[+tabName+]</h2>
 </div>
