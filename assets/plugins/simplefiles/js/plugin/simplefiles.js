@@ -39,6 +39,7 @@ var sfHelper = {};
                 indexField: 'sf_index',
                 sortName: 'sf_index',
                 sortOrder: 'DESC',
+                parentField: 'sf_rid',
                 rid: sfConfig.rid,
                 queryParams: {sf_rid: sfConfig.rid},
                 columns: sfGridColumns
