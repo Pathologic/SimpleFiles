@@ -60,10 +60,11 @@ class sfController extends \SimpleTab\AbstractController
             $uploadDir = $this->params['folder'] . 'upload/' . $this->rid . '/';
             $this->FS->makeDir($uploadDir, $this->modx->config['new_folder_permissions']);
             $filename = end(explode('filename=', $_SERVER['HTTP_CONTENT_DISPOSITION']));
+            $_filename = $this->data->stripName(urldecode($filename));
             $content_range_header = $_SERVER['HTTP_CONTENT_RANGE'];
             $content_range = $content_range_header ? preg_split('/[^0-9]+/', $content_range_header) : null;
             $size = $content_range ? $content_range[3] : null;
-            $partfile = MODX_BASE_PATH . $uploadDir . $filename . '.part';
+            $partfile = MODX_BASE_PATH . $uploadDir . $_filename . '.part';
             $in = @fopen("php://input", "rb");
             if (!$content_range[1] && $this->FS->fileSize($partfile) > $content_range[2]) {
                 $out = @fopen($partfile, "wb");
