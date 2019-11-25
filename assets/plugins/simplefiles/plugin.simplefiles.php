@@ -3,8 +3,7 @@ if (IN_MANAGER_MODE != 'true') die();
 $e = &$modx->event;
 if ($e->name == 'OnDocFormRender') {
     include_once(MODX_BASE_PATH . 'assets/plugins/simplefiles/lib/plugin.class.php');
-    global $modx_lang_attribute;
-    $plugin = new \SimpleFiles\sfPlugin($modx, $modx_lang_attribute);
+    $plugin = new \SimpleFiles\sfPlugin($modx, $modx->getConfig('lang_code'));
     if ($id) {
         $output = $plugin->render();
         $plugin->clearFolders(array($id), MODX_BASE_PATH . $e->params['folder'].'upload/');
