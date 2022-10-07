@@ -30,7 +30,7 @@ $params = array_merge(array(
 
 if(!class_exists("DLsfLister", false)){
     class DLsfLister{
-        public static function prepare(array $data = array(), DocumentParser $modx, $_DL, prepare_DL_Extender $_extDocLister){
+        public static function prepare(array $data, DocumentParser $modx, $_DL, prepare_DL_Extender $_extDocLister){
             $iconsFolder = $_DL->getCfgDef('iconsFolder','assets/snippets/simplefiles/icons');
             $data['fSize'] = $_DL->FS->fileSize($data['sf_file'],true);
             $data['mime'] = $_DL->FS->takeFileMIME($data['sf_file']);
